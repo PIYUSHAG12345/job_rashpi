@@ -8,6 +8,8 @@ import Arena from "./components/Pages/Arena";
 import QuestionsPage from "./components/Pages/Platforms/Questions";
 import ResumeBuilder from "./components/Pages/ResumeBuilder";
 import PlatformList from "./components/Pages/Platforms/PlatformList";
+import CodeforcesAPI from "./components/Pages/Platforms/Codeforces";
+import ContestsWithLinks from "./components/Pages/Platforms/Contests";
 const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<Home />} />
@@ -19,6 +21,8 @@ const AppRoutes = () => (
     <Route path="/resumebuilder" element={<ResumeBuilder/>}/>
     <Route path="/platformlist" element={<PlatformList/>}/>
     <Route path="/platform/QuestionsPage" element={<QuestionsPage />} />
+    <Route path="/platform/CodeforcesAPI" element={<CodeforcesAPI />} />
+    <Route path="/platform/ContestsWithLinks" element={<ContestsWithLinks />} />
 
   </Routes>
 );

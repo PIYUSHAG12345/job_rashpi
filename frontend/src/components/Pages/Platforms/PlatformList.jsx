@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const platforms = [
   { id: 1, name: "leetcode",path:"QuestionsPage" },
-  { id: 2, name: "Codeforces" },
-  { id: 3, name: "HackerRank" },
+  { id: 2, name: "Codeforces",path:"CodeforcesAPI" },
+  { id: 3, name: "Contests",path:"ContestsWithLinks" },
   { id: 4, name: "GeeksforGeeks" },
   { id: 5, name: "HackerEarth" },
 ];
