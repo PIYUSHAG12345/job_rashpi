@@ -27,6 +27,11 @@ const Navbar = () => {
               Arena
             </Link>
           </li>
+          <li>
+            <Link to="/register" className="navbar-link">
+              Register
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>

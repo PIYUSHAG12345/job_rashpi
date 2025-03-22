@@ -10,6 +10,10 @@ import ResumeBuilder from "./components/Pages/ResumeBuilder";
 import PlatformList from "./components/Pages/Platforms/PlatformList";
 import CodeforcesAPI from "./components/Pages/Platforms/Codeforces";
 import ContestsWithLinks from "./components/Pages/Platforms/Contests";
+import Login from "./components/Auth/Login";
+import Register from "./components/Auth/Signup";
+import CompaniesPage from "./components/Pages/ComapaniesPage";
+import CompanyDetails from "./components/Pages/CompanyDetails";
 const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<Home />} />
@@ -23,6 +27,10 @@ const AppRoutes = () => (
     <Route path="/platform/QuestionsPage" element={<QuestionsPage />} />
     <Route path="/platform/CodeforcesAPI" element={<CodeforcesAPI />} />
     <Route path="/platform/ContestsWithLinks" element={<ContestsWithLinks />} />
+<Route path="/login" element={<Login/>}/>
+<Route path="/register" element={<Register/>}/>
+<Route path="/companiespage" element={<CompaniesPage />}/>
+<Route path="/companies/:id" element={<CompanyDetails />}/>
 
   </Routes>
 );
