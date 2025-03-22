@@ -1,14 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Navbar.css"; // Link to the custom CSS file
 
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/profile">Profile</Link></li>
-        <li><Link to="/login">Login</Link></li>
-      </ul>
+      <div className="navbar-container">
+        <ul className="navbar-links">
+          <li>
+            <Link to="/" className="navbar-link">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/profile" className="navbar-link">
+              Profile
+            </Link>
+          </li>
+          <li>
+            <Link to="/login" className="navbar-link">
+              Login
+            </Link>
+          </li>
+          <li>
+            <Link to="/arena" className="navbar-link">
+              Arena
+            </Link>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 };
