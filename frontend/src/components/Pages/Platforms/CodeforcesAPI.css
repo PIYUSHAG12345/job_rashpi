@@ -1,0 +1,77 @@
+/* General Container Styles */
+.p-4 {
+    padding: 16px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Heading Styles */
+  .text-2xl {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Table Styles */
+  .table-auto {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #d1d5db; /* Light gray border */
+    background-color: #ffffff;
+  }
+  
+  .table-auto th,
+  .table-auto td {
+    padding: 12px 16px;
+    text-align: left;
+    border: 1px solid #d1d5db; /* Light gray border */
+  }
+  
+  .table-auto th {
+    background-color: #e5e7eb; /* Light gray for header */
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .table-auto tr:nth-child(even) {
+    background-color: #f3f4f6; /* Light background for even rows */
+  }
+  
+  .table-auto tr:nth-child(odd) {
+    background-color: #ffffff; /* White background for odd rows */
+  }
+  
+  /* Link Styles */
+  .text-blue-500 {
+    color: #1d4ed8; /* Blue link */
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .text-blue-500:hover {
+    color: #2563eb; /* Darker blue on hover */
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 600px) {
+    .p-4 {
+      padding: 8px;
+    }
+  
+    .text-2xl {
+      font-size: 20px;
+    }
+  
+    .table-auto th,
+    .table-auto td {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+  

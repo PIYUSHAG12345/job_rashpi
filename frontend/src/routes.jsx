@@ -14,6 +14,7 @@ import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Signup";
 import CompaniesPage from "./components/Pages/CompaniesPage";
 import CompanyDetails from "./components/Pages/CompanyDetails";
+import ResourcesPage from "./components/Pages/Resources";
 const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<Home />} />
@@ -31,6 +32,7 @@ const AppRoutes = () => (
 <Route path="/register" element={<Register/>}/>
 <Route path="/companiespage" element={<CompaniesPage />}/>
 <Route path="/companies/:id" element={<CompanyDetails />}/>
+<Route path="/resources" element={<ResourcesPage/>}/>
 
   </Routes>
 );

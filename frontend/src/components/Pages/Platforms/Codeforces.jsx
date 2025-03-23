@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./CodeforcesAPI.css"; // Import custom CSS
 
 const CodeforcesAPI = () => {
   const [problems, setProblems] = useState([]);
