@@ -12,7 +12,7 @@ import CodeforcesAPI from "./components/Pages/Platforms/Codeforces";
 import ContestsWithLinks from "./components/Pages/Platforms/Contests";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Signup";
-import CompaniesPage from "./components/Pages/ComapaniesPage";
+import CompaniesPage from "./components/Pages/CompaniesPage";
 import CompanyDetails from "./components/Pages/CompanyDetails";
 const AppRoutes = () => (
   <Routes>

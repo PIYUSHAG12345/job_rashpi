@@ -22,7 +22,7 @@ const Arena = () => {
     {
       title: "Company Profile",
       description: "Learn about top companies and their hiring patterns.",
-      link: "/company-profile",
+      link: "/companiespage",
       color: "from-yellow-500 to-yellow-600",
       icon: "🏢",
     },

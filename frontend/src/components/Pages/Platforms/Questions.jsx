@@ -9,7 +9,7 @@ const QuestionsPage = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/problems");
+        const response = await axios.get("http://localhost:4000/api/problems");
         setQuestions(response.data.reverse());
         setLoading(false);
       } catch (error) {

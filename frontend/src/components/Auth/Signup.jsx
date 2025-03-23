@@ -1,23 +1,30 @@
 import React, { useState } from "react";
 import "./Signup.css";
-import axios from "axios"
+import axios from "axios";
 import toast from "react-hot-toast";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false); // Loading state for button
 
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
+    e.preventDefault(); // Prevent page reload
+    setLoading(true); // Start loading indicator
     try {
-      const response = await axios.post("http://localhost:4000/api/v1/user/register", {
+      const response = await axios.post("http://localhost:4000/user/register", {
         name,
         email,
-        password
+        password,
       });
-      console.log(response.data); // User registered successfully
+      toast.success("Registration successful!"); // Notify user
+      console.log(response.data); // Optional: Log the response for debugging
     } catch (error) {
       console.error(error.response?.data?.message || "Error during registration");
+      toast.error(error.response?.data?.message || "Registration failed.");
+    } finally {
+      setLoading(false); // Stop loading indicator
     }
   };
 
@@ -56,7 +63,13 @@ const Register = () => {
               required
             />
           </div>
-          <button type="submit" className="register-btn">Register</button>
+          <button
+            type="submit"
+            className="register-btn"
+            disabled={loading} // Disable button while loading
+          >
+            {loading ? "Registering..." : "Register"}
+          </button>
         </form>
       </div>
     </div>

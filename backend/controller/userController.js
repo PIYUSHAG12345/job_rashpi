@@ -1,16 +1,14 @@
-import {User} from "../models/userSchema.js";
+import User from "../models/userSchema.js";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 export const register = async(req,res,next) => {
   const {name , email, password} = req.body;
   
-  if(!name || !email || !password){
-    return next(
-      res.status(400).json({
-        success : false,
-        message : "Please fill the full form"
-      })
-    );
+  if (!name || !email || !password) {
+    return res.status(400).json({
+      success: false,
+      message: "Please fill the full form",
+    });
   }
   
     console.log("Request Body:", req.body); // Log the incoming request
@@ -19,10 +17,10 @@ export const register = async(req,res,next) => {
   
   const isUser = await User.findOne({email});
   if(isUser){
-    return next(res.status(400).json({
-      success : "false",
-      message : "User already exist"
-    }))
+    return res.status(400).json({
+        success: false,
+        message: "User already exists",
+      });
   }
 
   const hashedPassword = await bcrypt.hash(password,10)
@@ -30,7 +28,7 @@ export const register = async(req,res,next) => {
   res.status(200).json({
     success : true,
     message : "User Registered",
-    user
+    user,
   });
 
    
@@ -50,7 +48,7 @@ export const login = async() => {
   }
 
   const user = await User.findOne({email});
-  if(user){
+  if(!user){
     return next(res.status(400).json({
       success : "false",
       message : "Invalid email or password"
@@ -67,8 +65,8 @@ export const login = async() => {
   }
 
   const token = jwt.sign({id: user._id},process.env.JWT_SECRET,{
-    expiresIn : "7d"
-  })
+    expiresIn : "7d",
+  });
 
   res.status(200).cookie("token",token, {
      httpOnly : true,
@@ -77,8 +75,8 @@ export const login = async() => {
     success : true,
     message : "user logged in.",
     user,
-    token
-  })
+    token,
+  });
 
 };
 

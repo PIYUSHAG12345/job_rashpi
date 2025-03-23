@@ -3,14 +3,19 @@ import axios from "axios"; // Use 'import' for axios
 import cors from "cors"; // Use 'import' for cors
 import { config } from "dotenv"; // Use 'import' for dotenv
 import app from "./app.js"; // Your custom app module
-import Company from './router/companies.js';
-
 // Load environment variables
 config();
-
 // Middleware setup
 app.use(cors());
 app.use(express.json());
+
+// app.use(
+//     cors({
+//       origin: "http://localhost:5174", // Allow requests from your frontend origin
+//       methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
+//       credentials: true, // Allow cookies or authentication headers
+//     })
+//   );
 
 // LeetCode problems API endpoint
 app.get("/api/problems", async (req, res) => {
@@ -35,10 +40,3 @@ app.get("/api/problems", async (req, res) => {
   }
 });
 
-// Start the server
-app.use('/api/companies', Company);
-app.listen(process.env.PORT, () => {
-  console.log(`Server is listening on port ${process.env.PORT}`);
-}).on("error", (err) => {
-  console.error("Server Error:", err);
-});
