@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import "./Signup.css";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false); // Loading state for button
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleRegister = async (e) => {
     e.preventDefault(); // Prevent page reload
@@ -19,6 +21,8 @@ const Register = () => {
         password,
       });
       toast.success("Registration successful!"); // Notify user
+      navigate("/arena"); // Redirect to Arena page
+
       console.log(response.data); // Optional: Log the response for debugging
     } catch (error) {
       console.error(error.response?.data?.message || "Error during registration");
