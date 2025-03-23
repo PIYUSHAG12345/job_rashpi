@@ -1,102 +1,125 @@
-/* General Page Styles */
+/* Arena.css */
 body {
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(to bottom, #121212, #1e1e1e);
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);
     color: white;
+    overflow-x: hidden;
+  }
+  
+  .arena-container {
     min-height: 100vh;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
   
-  h1 {
+  .arena-title {
     font-size: 3rem;
-    font-weight: 800;
+    font-weight: 900;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #ff416c, #ff4b2b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     text-align: center;
     margin-bottom: 2rem;
-    background: linear-gradient(to right, #ff6ec4, #7873f5);
-    /* -webkit-background-clip: text; */
-    color: transparent;
+    animation: glow 2s infinite alternate;
   }
   
-  .container {
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 10px #ff416c, 0 0 20px #ff4b2b, 0 0 30px #ff4b2b;
+    }
+    to {
+      text-shadow: 0 0 20px #ff416c, 0 0 30px #ff4b2b, 0 0 40px #ff4b2b;
+    }
+  }
+  
+  .card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
-    padding: 2rem;
   }
   
-  /* Card Styles */
   .card {
+    width: 300px;
+    height: 200px;
     position: relative;
-    width: 320px;
-    padding: 20px;
-    border-radius: 16px;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
     cursor: pointer;
   }
   
   .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+    transform: scale(1.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+  }
+  
+  @keyframes shine {
+    0% {
+      transform: rotate(45deg) translate(-200%, -200%);
+    }
+    100% {
+      transform: rotate(45deg) translate(200%, 200%);
+    }
+  }
+  
+  .card-content {
+    position: relative;
+    z-index: 10;
+    text-align: left;
+    padding: 1.5rem;
   }
   
   .card-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-  
-  .card-title span {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
   }
   
   .card-description {
     font-size: 1rem;
-    line-height: 1.5;
+    margin-top: 0.5rem;
     opacity: 0.8;
-    margin-bottom: 1.5rem;
   }
   
-  .card button {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 30px;
+  .card-icon {
+    font-size: 2rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+  
+  .card-button {
+    margin-top: 1rem;
+    background: linear-gradient(90deg, #ff416c, #ff4b2b);
     color: white;
-    font-size: 0.9rem;
-    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s ease;
   }
   
-  .card button:hover {
-    background: rgba(255, 255, 255, 0.4);
-  }
-  
-  /* Gradients for each card */
-  .card.resources {
-    background: linear-gradient(to right, #3b82f6, #1e40af);
-  }
-  
-  .card.platforms {
-    background: linear-gradient(to right, #10b981, #047857);
-  }
-  
-  .card.companies {
-    background: linear-gradient(to right, #f59e0b, #d97706);
-  }
-  
-  .card.resume {
-    background: linear-gradient(to right, #ef4444, #b91c1c);
+  .card-button:hover {
+    background: linear-gradient(90deg, #ff4b2b, #ff416c);
   }
   

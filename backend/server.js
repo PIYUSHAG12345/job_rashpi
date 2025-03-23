@@ -1,10 +1,23 @@
 import express from "express"; // Use 'import' for express
 import axios from "axios"; // Use 'import' for axios
 import cors from "cors"; // Use 'import' for cors
+import multer from "multer"; // Import multer for file uploads
 import { config } from "dotenv"; // Use 'import' for dotenv
 import app from "./app.js"; // Your custom app module
-// Load environment variables
 config();
+
+// Multer configuration
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/"); // Specify the directory to store files
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname); // Unique file name
+  },
+});
+
+const upload = multer({ storage }); // Create an upload instance
+
 // Middleware setup
 app.use(cors());
 app.use(express.json());
@@ -40,3 +53,50 @@ app.get("/api/problems", async (req, res) => {
   }
 });
 
+// Upload Resume API
+app.post("/upload-resume", upload.single("file"), async (req, res) => {
+  try {
+    const { userId } = req.body; // Extract the userId from the request
+    const filePath = req.file.path; // Get the uploaded file's path
+
+    // Check if the user already exists
+    let user = await User.findOne({ userId });
+
+    if (!user) {
+      // If the user doesn't exist, create a new entry
+      user = new User({ userId, resumePath: filePath });
+    } else {
+      // If the user exists, update the resumePath
+      user.resumePath = filePath;
+    }
+
+    await user.save();
+
+    res.status(200).json({
+      message: "File uploaded successfully!",
+      userId,
+      resumePath: filePath,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to upload file." });
+  }
+});
+
+// Endpoint to fetch user data
+app.get("/user-resume/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const user = await User.findOne({ userId });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.status(200).json({ userId, resumePath: user.resumePath });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch user data." });
+  }
+});
