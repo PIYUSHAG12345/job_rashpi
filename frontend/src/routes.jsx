@@ -15,6 +15,8 @@ import Register from "./components/Auth/Signup";
 import CompaniesPage from "./components/Pages/CompaniesPage";
 import CompanyDetails from "./components/Pages/CompanyDetails";
 import ResourcesPage from "./components/Pages/Resources";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 const AppRoutes = () => (
   <Routes>
     <Route path="/home" element={<Home />} />
