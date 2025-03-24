@@ -5,7 +5,7 @@ const QuestionsPage = () => {
   const [questions, setQuestions] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
-  const [difficultyFilter, setDifficultyFilter] = useState("All"); // New state for filter
+  const [difficultyFilter, setDifficultyFilter] = useState("All");
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -21,7 +21,6 @@ const QuestionsPage = () => {
     fetchQuestions();
   }, []);
 
-  // Filter questions based on search input and difficulty filter
   const filteredQuestions = questions.filter((question) => {
     const matchesSearch = question.title
       .toLowerCase()
@@ -110,13 +109,14 @@ const QuestionsPage = () => {
 const styles = {
   container: {
     padding: "20px",
-    backgroundColor: "#f3f4f6",
+    backgroundColor: "#121212",
     minHeight: "100vh",
     fontFamily: "'Arial', sans-serif",
+    color: "#e0e0e0",
   },
   title: {
     fontSize: "2.5rem",
-    color: "#333",
+    color: "#ffffff",
     textAlign: "center",
     marginBottom: "20px",
   },
@@ -126,8 +126,10 @@ const styles = {
     padding: "10px",
     width: "50%",
     borderRadius: "8px",
-    border: "1px solid #ccc",
+    border: "1px solid #333",
     fontSize: "1rem",
+    backgroundColor: "#1e1e1e",
+    color: "#e0e0e0",
   },
   filterSelect: {
     display: "block",
@@ -135,9 +137,10 @@ const styles = {
     padding: "10px",
     width: "50%",
     borderRadius: "8px",
-    border: "1px solid #ccc",
+    border: "1px solid #333",
     fontSize: "1rem",
-    backgroundColor: "#fff",
+    backgroundColor: "#1e1e1e",
+    color: "#e0e0e0",
   },
   tableContainer: {
     display: "flex",
@@ -146,9 +149,9 @@ const styles = {
     gap: "20px",
   },
   card: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#1e1e1e",
     borderRadius: "12px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)",
     padding: "20px",
     width: "300px",
     transition: "transform 0.3s ease, box-shadow 0.3s ease",
@@ -160,7 +163,7 @@ const styles = {
   cardRow: {
     marginBottom: "10px",
     fontSize: "1rem",
-    color: "#555",
+    color: "#e0e0e0",
   },
   difficultyBadge: {
     color: "#fff",
@@ -170,7 +173,7 @@ const styles = {
     fontSize: "0.9rem",
   },
   link: {
-    color: "#007bff",
+    color: "#00e5ff",
     textDecoration: "none",
     fontWeight: "bold",
     fontSize: "1rem",
@@ -182,9 +185,9 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     height: "100vh",
-    backgroundColor: "#f3f4f6",
+    backgroundColor: "#121212",
     fontSize: "1.5rem",
-    color: "#333",
+    color: "#e0e0e0",
   },
 };
 

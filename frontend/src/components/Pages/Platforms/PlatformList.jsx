@@ -13,11 +13,27 @@ const PlatformList = () => {
       <h1 style={styles.title}>Explore Platforms</h1>
       <div style={styles.cardContainer}>
         {platforms.map((platform) => (
-          <div key={platform.id} style={styles.card}>
-            <Link to={`/platform/${platform.path}`} style={styles.cardLink}>
+          <Link
+            key={platform.id}
+            to={`/platform/${platform.path}`}
+            style={styles.cardLink} // Wrap the entire card
+          >
+            <div
+              style={styles.card}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "linear-gradient(145deg, #2a2a2a, #414141)";
+                e.currentTarget.style.boxShadow = "0px 8px 20px rgba(0, 0, 0, 0.6)";
+                e.currentTarget.style.transform = "translateY(-10px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "linear-gradient(145deg, #1c1c1c, #333333)";
+                e.currentTarget.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.5)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
               <h2 style={styles.cardTitle}>{platform.name}</h2>
-            </Link>
-          </div>
+            </div>
+          </Link>
         ))}
       </div>
     </div>
@@ -28,7 +44,7 @@ const styles = {
   container: {
     padding: "40px",
     textAlign: "center",
-    background: "linear-gradient(135deg, #1f4037, #99f2c8)", // Gradient background
+    background: "linear-gradient(135deg, #0f0f0f, #1a1a1a)",
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
@@ -37,10 +53,10 @@ const styles = {
   },
   title: {
     fontSize: "3rem",
-    color: "#ffffff",
+    color: "#f5f5f5",
     marginBottom: "40px",
     fontWeight: "bold",
-    textShadow: "0px 3px 6px rgba(0, 0, 0, 0.3)",
+    textShadow: "0px 4px 12px rgba(0, 0, 0, 0.8)",
   },
   cardContainer: {
     display: "grid",
@@ -49,26 +65,23 @@ const styles = {
     width: "80%",
   },
   card: {
-    background: "#ffffff",
+    background: "linear-gradient(145deg, #1c1c1c, #333333)",
     borderRadius: "16px",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)",
     padding: "20px",
     textAlign: "center",
-    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+    transition: "transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease",
     cursor: "pointer",
-  },
-  cardHover: {
-    transform: "scale(1.05)",
-    boxShadow: "0px 6px 16px rgba(0, 0, 0, 0.3)",
+    color: "#ffffff",
   },
   cardLink: {
     textDecoration: "none",
-    color: "#333",
   },
   cardTitle: {
     fontSize: "1.5rem",
     fontWeight: "600",
-    color: "#333",
+    color: "#f5f5f5",
+    textShadow: "0px 2px 6px rgba(0, 0, 0, 0.5)",
   },
 };
 
