@@ -15,10 +15,9 @@ import Register from "./components/Auth/Signup";
 import CompaniesPage from "./components/Pages/CompaniesPage";
 import CompanyDetails from "./components/Pages/CompanyDetails";
 import ResourcesPage from "./components/Pages/Resources";
-import PrivateRoute from "./components/PrivateRoute";
 const AppRoutes = () => (
   <Routes>
-    <Route path="/" element={<Home />} />
+    <Route path="/home" element={<Home />} />
     <Route path="/about" element={<About />} />
     <Route path="/contact" element={<Contact />} />
     <Route path="/arena" element={<Arena/>}/>
