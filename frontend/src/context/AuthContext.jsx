@@ -10,12 +10,14 @@ export const AuthProvider = ({ children }) => {
   });
 
   // Fetch user from localStorage on app load
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser)); // Set user from localStorage
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedUser = localStorage.getItem("user");
+  //   if (storedUser) {
+  //     setUser(JSON.parse(storedUser)); // Set user from localStorage
+  //   }
+  // }, []);
+
+
 
   // Login function
   const login = async (email, password) => {

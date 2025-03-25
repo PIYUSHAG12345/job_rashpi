@@ -1,21 +1,22 @@
 import { useState, useEffect } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Import axios for API calls
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false); // State for button loading
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Check if user is already logged in (e.g., token exists in localStorage)
+  // Check if user is already logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/arena"); // Redirect to Arena if token exists
+      console.log(token); // Logs token only once
+      navigate("/arena", { replace: true }); // Navigate without history stacking
     }
-  }, [navigate]);
+  }, [navigate]); // Dependency on navigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ const Login = () => {
       const { token } = response.data;
       localStorage.setItem("token", token);
 
-      console.log("Login successful:", response.data);
+      console.log("Login successful:", response.data, token);
       navigate("/arena"); // Redirect to Arena on success
     } catch (error) {
       console.error(error.response?.data?.message || "Login failed");
