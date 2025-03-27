@@ -1,44 +1,39 @@
 import { useState, useEffect } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-
+import axios from "axios"; 
+import { useAuth } from "../../context/AuthContext";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // State for button loading
   const navigate = useNavigate();
+  const { setUser } = useAuth();
 
-  // Check if user is already logged in
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      console.log(token); // Logs token only once
-      navigate("/arena", { replace: true }); // Navigate without history stacking
-    }
-  }, [navigate]); // Dependency on navigate
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading
+    
     try {
       const response = await axios.post("http://localhost:4000/user/login", {
         email,
         password,
-      });
-
-      // Save token to localStorage
-      const { token } = response.data;
-      localStorage.setItem("token", token);
-
-      console.log("Login successful:", response.data, token);
+      },
+      {
+        withCredentials : true,
+        headers : {"Content-Type" : "application/json"},
+      }
+    );
+      setUser(response.data.user); // Set user data after login
+      console.log(response.data.token);
+      console.log("Login successful:", response.data);
       navigate("/arena"); // Redirect to Arena on success
     } catch (error) {
+     
       console.error(error.response?.data?.message || "Login failed");
       alert(error.response?.data?.message || "Invalid credentials");
-    } finally {
-      setLoading(false); // Stop loading
-    }
+    } 
   };
 
   return (

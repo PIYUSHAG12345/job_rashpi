@@ -83,10 +83,12 @@ export const login = async (req, res, next) => {
     });
 
     // Set token in an HTTP-only cookie
+    console.log("Generated Token:", token);
     res.status(200)
       .cookie("token", token, {
         httpOnly: true,
         expires: new Date(Date.now() + process.env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
+        
       })
       .json({
         success: true,
@@ -122,6 +124,27 @@ export const getUser = async (req, res, next) => {
     });
   } catch (error) {
     console.error("Error in getUser:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error. Please try again later.",
+    });
+  }
+};
+
+// Logout User
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
+    });
+  } catch (error) {
+    console.error("Error in logout:", error);
     res.status(500).json({
       success: false,
       message: "Server error. Please try again later.",

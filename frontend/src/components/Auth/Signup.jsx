@@ -3,6 +3,7 @@ import "./Signup.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -21,10 +22,20 @@ const Register = () => {
         name,
         email,
         password,
-      });
-
-      toast.success("Registration successful! Redirecting to login...");
-      setTimeout(() => navigate("/login"), 2000); // Redirect to Login after delay
+      },
+      {
+        withCredentials : true,
+        headers : {"Content-Type" : "application/json"},
+      }
+    );
+      
+      setTimeout(()=>{
+        toast.success("Registration successful!");
+        setTimeout(()=>{
+          navigate("/arena");
+        },1000); 
+      },1000);
+       // Redirect to Login after delay
 
       console.log(response.data); // Log response for debugging
     } catch (error) {

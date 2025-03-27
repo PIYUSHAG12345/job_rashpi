@@ -1,50 +1,35 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    // Retrieve user from localStorage if available
-    return JSON.parse(localStorage.getItem("user")) || null;
-  });
+  const [user, setUser] = useState(null);
 
-  // Fetch user from localStorage on app load
-  // useEffect(() => {
-  //   const storedUser = localStorage.getItem("user");
-  //   if (storedUser) {
-  //     setUser(JSON.parse(storedUser)); // Set user from localStorage
-  //   }
-  // }, []);
-
-
-
-  // Login function
-  const login = async (email, password) => {
+  // Function to fetch user data
+  const fetchUser = async () => {
     try {
-      const res = await axios.post("http://localhost:4000/user/login", {
-        email,
-        password,
+      const res = await axios.get("http://localhost:4000/user/get", {
+        withCredentials: true,
       });
-
-      localStorage.setItem("user", JSON.stringify(res.data)); // ✅ Save user in localStorage
       setUser(res.data);
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("Error fetching user:", error);
+      setUser(null);
     }
   };
 
-  // Logout function
-  const logout = () => {
-    localStorage.removeItem("user"); // ✅ Remove user from localStorage
-    setUser(null);
-  };
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, login, logout }}>
+    <AuthContext.Provider value={{ user, setUser }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
 export const useAuth = () => useContext(AuthContext);
+
+export default AuthContext; // ✅ Ensure default export
