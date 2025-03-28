@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./CodeforcesAPI.css"; // Import custom CSS
 
 const CodeforcesAPI = () => {
   const [problems, setProblems] = useState([]);
@@ -26,45 +27,44 @@ const CodeforcesAPI = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading problems...</div>;
+    return <div className="loading">Loading problems...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="error">{error}</div>;
   }
 
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Codeforces Problems</h1>
-      <table className="table-auto w-full border border-gray-300">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="px-4 py-2">Index</th>
-            <th className="px-4 py-2">Name</th>
-            <th className="px-4 py-2">Difficulty</th>
-          </tr>
-        </thead>
-        <tbody>
-          {problems.map((problem, index) => (
-            <tr key={index} className="border-t">
-              <td className="px-4 py-2">{problem.index}</td>
-              <td className="px-4 py-2">
-                <a
-                  href={`https://codeforces.com/problemset/problem/${problem.contestId}/${problem.index}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 underline"
-                >
-                  {problem.name}
-                </a>
-              </td>
-              <td className="px-4 py-2">
-                {problem.rating ? problem.rating : "Unknown"}
-              </td>
+      <div className="table-container">
+        <table className="table-auto w-full">
+          <thead>
+            <tr>
+              <th>Index</th>
+              <th>Name</th>
+              <th>Difficulty</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {problems.map((problem, index) => (
+              <tr key={index}>
+                <td>{problem.index}</td>
+                <td>
+                  <a
+                    href={`https://codeforces.com/problemset/problem/${problem.contestId}/${problem.index}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {problem.name}
+                  </a>
+                </td>
+                <td>{problem.rating ? problem.rating : "Unknown"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
