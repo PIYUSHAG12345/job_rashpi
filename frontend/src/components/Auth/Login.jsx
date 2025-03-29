@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
     
     try {
-      const response = await axios.post("http://localhost:4000/user/login", {
+      const response = await axios.post("https://job-rashpi-2.onrender.com/user/login", {
         email,
         password,
       },
