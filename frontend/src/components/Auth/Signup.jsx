@@ -16,14 +16,25 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:4000/user/register",
-        { name, email, password },
-        {
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      // API call to register user
+      const response = await axios.post("https://job-rashpi-2.onrender.com/user/register", {
+        name,
+        email,
+        password,
+      },
+      {
+        withCredentials : true,
+        headers : {"Content-Type" : "application/json"},
+      }
+    );
+      
+      setTimeout(()=>{
+        toast.success("Registration successful!");
+        setTimeout(()=>{
+          navigate("/arena");
+        },1000); 
+      },1000);
+       // Redirect to Login after delay
 
       setTimeout(() => {
         toast.success("Registration successful!");
