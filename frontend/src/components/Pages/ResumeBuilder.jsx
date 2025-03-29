@@ -11,7 +11,7 @@ const ResumeBuilder = () => {
   useEffect(() => {
     const fetchUserResume = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/user-resume/${userId}`);
+        const response = await fetch(`https://job-rashpi-2.onrender.com/user-resume/${userId}`);
         const data = await response.json();
 
         if (response.ok) {
@@ -37,7 +37,7 @@ const ResumeBuilder = () => {
     formData.append("userId", userId); // Attach userId to the request
 
     try {
-      const response = await fetch("http://localhost:5000/upload-resume", {
+      const response = await fetch("https://job-rashpi-2.onrender.com/upload-resume", {
         method: "POST",
         body: formData,
       });
