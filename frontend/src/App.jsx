@@ -4,7 +4,7 @@ import Login from "./components/Auth/Login.jsx";
 import Arena from "./components/Pages/Arena.jsx";
 import AppRoutes from "./routes.jsx";
 import { Toaster } from "react-hot-toast";
-import Home from "./components/pages/home.jsx";
+import Home from "./components/Pages/home.jsx";
 import ProtectedRoute from "./components/PrivateRoute.jsx";
 import QuestionsPage from "./components/Pages/Platforms/Questions.jsx";
 import PlatformList from "./components/Pages/Platforms/PlatformList.jsx";
@@ -30,7 +30,7 @@ const App = () => {
         {/* Public Route */}
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
-        <Route path="/resources" element={<ResourcesPage/>}/>
+        <Route path="/resources" element={<ProtectedRoute element={<ResourcesPage/>}/>}/>
         <Route path="/companiespage" element={<CompaniesPage />}/>
         <Route path="/register" element={<Register/>}/>
 

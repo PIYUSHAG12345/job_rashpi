@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import "./Signup.css";
+import "./Signup.css"; // Import the dark theme CSS
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -13,39 +12,34 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-    setLoading(true); // Show loading state
+    e.preventDefault();
+    setLoading(true);
 
     try {
-      // API call to register user
-      const response = await axios.post("http://localhost:4000/user/register", {
-        name,
-        email,
-        password,
-      },
-      {
-        withCredentials : true,
-        headers : {"Content-Type" : "application/json"},
-      }
-    );
-      
-      setTimeout(()=>{
-        toast.success("Registration successful!");
-        setTimeout(()=>{
-          navigate("/arena");
-        },1000); 
-      },1000);
-       // Redirect to Login after delay
+      const response = await axios.post(
+        "http://localhost:4000/user/register",
+        { name, email, password },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
-      console.log(response.data); // Log response for debugging
+      setTimeout(() => {
+        toast.success("Registration successful!");
+        setTimeout(() => {
+          navigate("/arena");
+        }, 1000);
+      }, 1000);
+
+      console.log(response.data);
     } catch (error) {
-      // Enhanced error handling
       const errorMessage =
         error.response?.data?.message || "Failed to register. Please try again.";
       console.error(errorMessage);
       toast.error(errorMessage);
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   };
 
@@ -54,7 +48,6 @@ const Register = () => {
       <div className="register-box">
         <h2>Register</h2>
         <form onSubmit={handleRegister}>
-          {/* Input for Name */}
           <div className="input-group">
             <label htmlFor="name">Name</label>
             <input
@@ -64,11 +57,8 @@ const Register = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              aria-label="Enter your name"
             />
           </div>
-
-          {/* Input for Email */}
           <div className="input-group">
             <label htmlFor="email">Email</label>
             <input
@@ -78,11 +68,8 @@ const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              aria-label="Enter your email"
             />
           </div>
-
-          {/* Input for Password */}
           <div className="input-group">
             <label htmlFor="password">Password</label>
             <input
@@ -92,31 +79,20 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              aria-label="Enter your password"
             />
           </div>
-
-          {/* Submit Button */}
           <button
             type="submit"
             className="register-btn"
             disabled={loading}
-            aria-label="Register"
           >
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
-
-        {/* Login Link */}
         <div className="redirect-link">
           <p>
             Already have an account?{" "}
-            <span
-              onClick={() => navigate("/login")}
-              style={{ color: "blue", cursor: "pointer" }}
-            >
-              Login here
-            </span>
+            <span onClick={() => navigate("/login")}>Login here</span>
           </p>
         </div>
       </div>
