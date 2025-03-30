@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 // Load environment variables
-config({ path: "./config/config.env" });
+config({ path: "./config/.env" });
 
 // Database connection
 dbConnection();
@@ -29,8 +29,6 @@ app.use(
 
 // Routes
 app.use("/user", userRouter);
-
-
 // Start the server
 // app.use('/api/companies', Company);
 app.listen(process.env.PORT, () => {

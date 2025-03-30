@@ -16,6 +16,25 @@ const Register = () => {
     setLoading(true);
 
     try {
+      // API call to register user
+      const response = await axios.post("http://localhost:4000/user/register", {
+        name,
+        email,
+        password,
+      },
+      {
+        withCredentials : true,
+        headers : {"Content-Type" : "application/json"},
+      }
+    );
+      
+      setTimeout(()=>{
+        toast.success("Registration successful!");
+        setTimeout(()=>{
+          navigate("/arena");
+        },1000); 
+      },1000);
+       // Redirect to Login after delay
       const response = await axios.post(
         "http://localhost:4000/user/register",
         {

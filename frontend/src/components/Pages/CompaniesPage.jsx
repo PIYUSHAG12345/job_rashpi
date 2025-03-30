@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import "./Company.css";
+import { useNavigate } from "react-router-dom";
 const CompaniesPage = () => {
   const [companies, setCompanies] = useState([]);
 
@@ -41,6 +42,13 @@ const CompaniesPage = () => {
     fetchCompanies();
   }, []);
 
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+       navigate("/experience");
+    };
+   
+  
   return (
     <div>
       <h1>Available Job Profiles</h1>
@@ -51,6 +59,7 @@ const CompaniesPage = () => {
           </li>
         ))}
       </ul>
+      <button className="experience-button" onClick={handleClick}>SHARE OR READ EXPERIENCE</button>
     </div>
   );
 };
