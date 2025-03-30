@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Signup.css"; // Import the dark theme CSS
+import "./Signup.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -16,25 +16,18 @@ const Register = () => {
     setLoading(true);
 
     try {
-      // API call to register user
-      const response = await axios.post("https://job-rashpi-2.onrender.com/user/register", {
-        name,
-        email,
-        password,
-      },
-      {
-        withCredentials : true,
-        headers : {"Content-Type" : "application/json"},
-      }
-    );
-      
-      setTimeout(()=>{
-        toast.success("Registration successful!");
-        setTimeout(()=>{
-          navigate("/arena");
-        },1000); 
-      },1000);
-       // Redirect to Login after delay
+      const response = await axios.post(
+        "http://localhost:4000/user/register",
+        {
+          name,
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       setTimeout(() => {
         toast.success("Registration successful!");
@@ -52,6 +45,10 @@ const Register = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:4000/auth/google"; // Backend se redirect hoga
   };
 
   return (
@@ -92,20 +89,25 @@ const Register = () => {
               required
             />
           </div>
-          <button
-            type="submit"
-            className="register-btn"
-            disabled={loading}
-          >
+          <button type="submit" className="register-btn" disabled={loading}>
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
+
         <div className="redirect-link">
           <p>
             Already have an account?{" "}
             <span onClick={() => navigate("/login")}>Login here</span>
           </p>
         </div>
+
+        {/* Google Login Button */}
+        <button
+          onClick={handleGoogleLogin}
+          style={{ padding: "10px", background: "blue", color: "white", marginTop: "10px" }}
+        >
+          Sign in with Google
+        </button>
       </div>
     </div>
   );

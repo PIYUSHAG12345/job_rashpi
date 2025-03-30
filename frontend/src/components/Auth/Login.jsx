@@ -1,39 +1,40 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; 
+import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false); // State for button loading
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { setUser } = useAuth();
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
-      const response = await axios.post("https://job-rashpi-2.onrender.com/user/login", {
-        email,
-        password,
-      },
-      {
-        withCredentials : true,
-        headers : {"Content-Type" : "application/json"},
-      }
-    );
-      setUser(response.data.user); // Set user data after login
-      console.log(response.data.token);
+      const response = await axios.post(
+        "http://localhost:4000/user/login",
+        { email, password },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      setUser(response.data.user);
       console.log("Login successful:", response.data);
-      navigate("/arena"); // Redirect to Arena on success
+      navigate("/arena");
     } catch (error) {
-     
       console.error(error.response?.data?.message || "Login failed");
       alert(error.response?.data?.message || "Invalid credentials");
-    } 
+    }
+  };
+
+  // Google Login Redirect Function
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:4000/auth/google";
   };
 
   return (
@@ -66,6 +67,14 @@ const Login = () => {
         <button type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>
+
+        <hr />
+
+        {/* Google Login Button */}
+        <button onClick={handleGoogleLogin} className="google-login-btn">
+  Login with Google
+</button>
+
       </form>
     </div>
   );

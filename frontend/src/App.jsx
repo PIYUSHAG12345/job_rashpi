@@ -14,7 +14,18 @@ import ContestsWithLinks from "./components/Pages/Platforms/Contests.jsx";
 import ResourcesPage from "./components/Pages/Resources.jsx";
 import CompaniesPage from "./components/Pages/CompaniesPage.jsx";
 import Register from "./components/Auth/Signup.jsx";
+import { useEffect } from "react";
 const App = () => {
+  useEffect(() => {
+    // Get JWT token from URL after Google Auth redirect
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+
+    if (token) {
+      localStorage.setItem("token", token);
+      window.location.href = "/arena";
+    }
+  }, []);
   return (
       <Router>
         <Routes>

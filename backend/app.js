@@ -21,7 +21,7 @@ app.use(cookieParser());
 // CORS configuration
 app.use(
   cors({
-    origin: "https://job-rashpi-2-frontend.onrender.com", // Allow requests from your frontend origin
+    origin: "http://localhost:5173", // Allow requests from your frontend origin
     methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
     credentials: true, // Allow cookies or authentication headers
   })
