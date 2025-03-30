@@ -11,7 +11,7 @@ const ResumeBuilder = () => {
   useEffect(() => {
     const fetchUserResume = async () => {
       try {
-        const response = await fetch(`https://job-rashpi-2.onrender.com/user-resume/${userId}`);
+        const response = await fetch(`http://localhost:4000/user-resume/${userId}`);
         const data = await response.json();
 
         if (response.ok) {
@@ -37,7 +37,7 @@ const ResumeBuilder = () => {
     formData.append("userId", userId); // Attach userId to the request
 
     try {
-      const response = await fetch("https://job-rashpi-2.onrender.com/upload-resume", {
+      const response = await fetch("http://localhost:4000/upload-resume", {
         method: "POST",
         body: formData,
       });
@@ -89,7 +89,7 @@ const ResumeBuilder = () => {
         <div className="resume-display">
           <h3>Your Uploaded Resume</h3>
           <a
-            href={`https://job-rashpi-2.onrender.com/${userResume}`}
+            href={`http://localhost:4000/${userResume}`}
             target="_blank"
             rel="noopener noreferrer"
           >

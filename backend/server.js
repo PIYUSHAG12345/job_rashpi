@@ -7,6 +7,11 @@ import app from "./app.js"; // Your custom app module
 import Experience from "./models/ExperienceSchema.js";
 import User from "./models/userSchema.js"
 
+import router from "./router/userRouter.js";
+import passport from "passport";
+import session from "express-session";
+import "./config/passport.js";
+import User from "./models/userSchema.js";
 config();
 
 // Multer configuration
@@ -22,9 +27,17 @@ const storage = multer.diskStorage({
 const upload = multer({ storage }); // Create an upload instance
 
 // Middleware setup
-app.use(cors());
+app.use(cors()); // Allow all origins
 app.use(express.json());
 
+app.use(session({
+  secret: "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", // Change this to a secure secret key
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // Set secure: true in production
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 // app.use(
 //     cors({
 //       origin: "http://localhost:5174", // Allow requests from your frontend origin
@@ -134,4 +147,23 @@ app.get("/user-resume/:userId", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch user data." });
   }
+});
+app.get("/auth/google", 
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+// Google Auth Callback
+app.get("/auth/google/callback", 
+  passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }), 
+  (req, res) => {
+    res.redirect("http://localhost:5173/arena"); // Redirect after successful login
+  }
+);
+
+// Logout Route
+app.get("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) return res.send("Logout failed");
+    res.redirect("http://localhost:5173/");
+  });
 });
