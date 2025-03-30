@@ -5,6 +5,7 @@ import multer from "multer"; // Import multer for file uploads
 import { config } from "dotenv"; // Use 'import' for dotenv
 import app from "./app.js"; // Your custom app module
 import Experience from "./models/ExperienceSchema.js";
+import User from "./models/userSchema.js"
 
 import router from "./router/userRouter.js";
 import passport from "passport";

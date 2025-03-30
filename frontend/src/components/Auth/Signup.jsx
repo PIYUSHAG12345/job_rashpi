@@ -17,7 +17,6 @@ const Register = () => {
 
     try {
       // API call to register user
-      
        // Redirect to Login after delay
       const response = await axios.post(
         "http://localhost:4000/user/register",
