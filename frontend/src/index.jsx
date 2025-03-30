@@ -5,8 +5,10 @@ import App from "./App";
 import "./index.css";
 
 ReactDOM.render(
+  // <AuthProvider>
   <BrowserRouter>
     <App />
   </BrowserRouter>,
+  // </AuthProvider>,
   document.getElementById("root")
 );
