@@ -11,7 +11,6 @@ import router from "./router/userRouter.js";
 import passport from "passport";
 import session from "express-session";
 import "./config/passport.js";
-import User from "./models/userSchema.js";
 config();
 
 // Multer configuration
