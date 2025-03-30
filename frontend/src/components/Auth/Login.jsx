@@ -15,17 +15,6 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:4000/user/login", {
-        email,
-        password,
-      },
-      {
-        withCredentials : true,
-        headers : {"Content-Type" : "application/json"},
-      }
-    );
-      setUser(response.data.user); // Set user data after login
-      console.log(response.data.token);
       const response = await axios.post(
         "http://localhost:4000/user/login",
         { email, password },
