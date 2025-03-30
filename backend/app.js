@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 // Load environment variables
-config({ path: "./config/config.env" });
+config({ path: "./config/.env" });
 
 // Database connection
 dbConnection();
@@ -21,7 +21,7 @@ app.use(cookieParser());
 // CORS configuration
 app.use(
   cors({
-    origin: "https://job-rashpi-2-frontend.onrender.com", // Allow requests from your frontend origin
+    origin: "http://localhost:5173", // Allow requests from your frontend origin
     methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
     credentials: true, // Allow cookies or authentication headers
   })
@@ -29,8 +29,6 @@ app.use(
 
 // Routes
 app.use("/user", userRouter);
-
-
 // Start the server
 // app.use('/api/companies', Company);
 app.listen(process.env.PORT, () => {

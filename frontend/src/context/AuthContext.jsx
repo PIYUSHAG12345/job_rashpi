@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   // Function to fetch user data
   const fetchUser = async () => {
     try {
-      const res = await axios.get("https://job-rashpi-2-frontend.onrender.com/user/get", {
+      const res = await axios.get("http://localhost:4000/user/get", {
         withCredentials: true,
       });
       setUser(res.data);

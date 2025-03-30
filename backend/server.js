@@ -4,6 +4,9 @@ import cors from "cors"; // Use 'import' for cors
 import multer from "multer"; // Import multer for file uploads
 import { config } from "dotenv"; // Use 'import' for dotenv
 import app from "./app.js"; // Your custom app module
+import Experience from "./models/ExperienceSchema.js";
+import User from "./models/userSchema.js"
+
 config();
 
 // Multer configuration
@@ -70,6 +73,7 @@ app.post("/upload-resume", upload.single("file"), async (req, res) => {
       // If the user exists, update the resumePath
       user.resumePath = filePath;
     }
+   
 
     await user.save();
 
@@ -84,6 +88,36 @@ app.post("/upload-resume", upload.single("file"), async (req, res) => {
   }
 });
 
+app.post('/user/experiences', async (req, res) => {
+  try {
+      const newExperience = new Experience(req.body);
+      await newExperience.save();
+      res.status(201).json(newExperience);
+  } catch (err) {
+      res.status(400).json({ message: err.message });
+  }
+});
+
+app.get('/user/experiences', async (req, res) => {
+  try {
+      const experiences = await Experience.find();
+      res.json(experiences);
+  } catch (err) {
+      res.status(500).json({ message: err.message });
+  }
+});
+
+app.delete('/user/experiences/:id', async (req, res) => {
+  try {
+      const experience = await Experience.findByIdAndDelete(req.params.id);
+      if (!experience) {
+          return res.status(404).json({ message: 'Experience not found' });
+      }
+      res.json({ message: 'Experience deleted successfully' });
+  } catch (error) {
+      res.status(500).json({ message: 'Error deleting experience' });
+  }
+});
 // Endpoint to fetch user data
 app.get("/user-resume/:userId", async (req, res) => {
   try {

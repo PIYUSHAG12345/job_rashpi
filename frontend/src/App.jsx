@@ -14,6 +14,7 @@ import ContestsWithLinks from "./components/Pages/Platforms/Contests.jsx";
 import ResourcesPage from "./components/Pages/Resources.jsx";
 import CompaniesPage from "./components/Pages/CompaniesPage.jsx";
 import Register from "./components/Auth/Signup.jsx";
+import Experience from "./components/Pages/Experience.jsx";
 const App = () => {
   return (
       <Router>
@@ -33,7 +34,7 @@ const App = () => {
         <Route path="/resources" element={<ProtectedRoute element={<ResourcesPage/>}/>}/>
         <Route path="/companiespage" element={<CompaniesPage />}/>
         <Route path="/register" element={<Register/>}/>
-
+        <Route path = "/experience" element = {<Experience/>}/>
       </Routes>
       </Router>
   );

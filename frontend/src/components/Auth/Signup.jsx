@@ -17,7 +17,7 @@ const Register = () => {
 
     try {
       // API call to register user
-      const response = await axios.post("https://job-rashpi-2.onrender.com/user/register", {
+      const response = await axios.post("http://localhost:4000/user/register", {
         name,
         email,
         password,
