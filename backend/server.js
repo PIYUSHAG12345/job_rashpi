@@ -11,17 +11,13 @@ import router from "./router/userRouter.js";
 import passport from "passport";
 import session from "express-session";
 import "./config/passport.js";
+import OpenAI from "openai/index.mjs";
+import Resume from "./models/resumeModel.js";
 config();
-
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 // Multer configuration
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/"); // Specify the directory to store files
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname); // Unique file name
-  },
-});
+const storage = multer.memoryStorage();
+
 
 const upload = multer({ storage }); // Create an upload instance
 
@@ -69,36 +65,7 @@ app.get("/api/problems", async (req, res) => {
   }
 });
 
-// Upload Resume API
-app.post("/upload-resume", upload.single("file"), async (req, res) => {
-  try {
-    const { userId } = req.body; // Extract the userId from the request
-    const filePath = req.file.path; // Get the uploaded file's path
 
-    // Check if the user already exists
-    let user = await User.findOne({ userId });
-
-    if (!user) {
-      // If the user doesn't exist, create a new entry
-      user = new User({ userId, resumePath: filePath });
-    } else {
-      // If the user exists, update the resumePath
-      user.resumePath = filePath;
-    }
-   
-
-    await user.save();
-
-    res.status(200).json({
-      message: "File uploaded successfully!",
-      userId,
-      resumePath: filePath,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to upload file." });
-  }
-});
 
 app.post('/user/experiences', async (req, res) => {
   try {
@@ -130,23 +97,7 @@ app.delete('/user/experiences/:id', async (req, res) => {
       res.status(500).json({ message: 'Error deleting experience' });
   }
 });
-// Endpoint to fetch user data
-app.get("/user-resume/:userId", async (req, res) => {
-  try {
-    const { userId } = req.params;
 
-    const user = await User.findOne({ userId });
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found." });
-    }
-
-    res.status(200).json({ userId, resumePath: user.resumePath });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to fetch user data." });
-  }
-});
 app.get("/auth/google", 
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
@@ -166,3 +117,5 @@ app.get("/logout", (req, res) => {
     res.redirect("http://localhost:5173/");
   });
 });
+
+

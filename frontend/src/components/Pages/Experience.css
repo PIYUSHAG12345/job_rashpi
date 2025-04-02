@@ -93,18 +93,21 @@
 }
 
 .card-title {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 18px;
+    /* font-weight: bold; */
     color: #32e0c4;
+    padding-left: 10px;
+    align-self: center;
 }
 
 .card-company, .card-position {
     font-size: 18px;
     margin: 5px 0;
+    padding-left: 24px;
 }
 
 .delete-button {
-    background-color: red;
+    background-color: rgb(81, 219, 54);
     color: white;
     padding: 5px 10px;
     margin-top: 10px;

@@ -4,9 +4,7 @@ import  {dbConnection} from "./database/dbConnection.js";
 import { config } from "dotenv";
 import userRouter from "./router/userRouter.js";
 import cookieParser from "cookie-parser";
-
 const app = express();
-
 // Load environment variables
 config({ path: "./config/config.env" });
 
@@ -17,7 +15,7 @@ dbConnection();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
+// app.use("/uploads",userRouter);
 // CORS configuration
 app.use(
   cors({
