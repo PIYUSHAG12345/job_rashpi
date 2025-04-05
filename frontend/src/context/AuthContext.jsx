@@ -6,13 +6,19 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  // Function to fetch user data
   const fetchUser = async () => {
     try {
+      // const params = new URLSearchParams(window.location.search);
+      // if (params.get("isLoggedIn") === "true") {
+      //   localStorage.setItem("isLoggedIn", "true");
+      //   window.history.replaceState({}, document.title, window.location.pathname);
+      // }
+
       const res = await axios.get("http://localhost:4000/user/get", {
-        withCredentials: true,
+        withCredentials: true, // Ensures cookies are sent
       });
-      setUser(res.data);
+
+      setUser(res.data.user);
     } catch (error) {
       console.error("Error fetching user:", error);
       setUser(null);
@@ -30,6 +36,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+// ✅ Export the custom hook correctly
 export const useAuth = () => useContext(AuthContext);
-
-export default AuthContext; // ✅ Ensure default export
+export default AuthContext;

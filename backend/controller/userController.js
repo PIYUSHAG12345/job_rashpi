@@ -69,7 +69,7 @@ export const login = async (req, res, next) => {
     }
 
     // Check if password matches
-    const isPasswordMatched = await bcrypt.compare(password, user.password);
+    const isPasswordMatched = bcrypt.compare(password, user.password);
     if (!isPasswordMatched) {
       return res.status(400).json({
         success: false,
@@ -106,11 +106,44 @@ export const login = async (req, res, next) => {
 };
 
 // Get Logged-in User
-export const getUser = async (req, res, next) => {
+export const getGoogleUser = async (req, res) => {
   try {
-    // Fetch user using the user ID stored in `req.user` (after JWT validation)
-    const user = await User.findById(req.user._id);
+    // Check if Google user is available via session
+    if (req.user) {
+      console.log(req.user);
+      return res.status(200).json({
+        success: true,
+        user: req.user,
+      });
+    }
 
+    res.status(401).json({
+      success: false,
+      message: "Google user not authenticated",
+    });
+  } catch (error) {
+    console.error("Error in getGoogleUser:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error. Please try again later.",
+    });
+  }
+};
+
+
+
+export const getUser = async (req, res) => {
+  try {
+    if (req.user) {
+      console.log(req.user);
+      return res.status(200).json({
+        success: true,
+        user: req.user,
+      });
+    }
+
+    // Normal JWT-based user retrieval
+    const user = await User.findById(req.user._id);
     if (!user) {
       return res.status(404).json({
         success: false,
@@ -130,6 +163,7 @@ export const getUser = async (req, res, next) => {
     });
   }
 };
+
 
 // Logout User
 export const logout = async (req, res) => {
