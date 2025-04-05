@@ -23,7 +23,7 @@ const upload = multer({ storage });
 // Middleware setup
 app.use(
   cors({
-    origin: "http://localhost:5173", // Allow your frontend URL
+    origin: "https://job-rashpi-2-frontend.onrender.com,http://localhost:5173", // Allow your frontend URL
     credentials: true, // Allow cookies to be sent
   })
 );
