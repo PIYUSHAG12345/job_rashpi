@@ -19,7 +19,7 @@ const Register = () => {
       // API call to register user
        // Redirect to Login after delay
       const response = await axios.post(
-        "http://localhost:4000/user/register",
+        "https://job-rashpi-2-frontend.onrender.com/user/register",
         {
           name,
           email,
