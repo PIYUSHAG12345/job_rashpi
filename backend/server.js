@@ -1,45 +1,54 @@
-import express from "express"; // Use 'import' for express
-import axios from "axios"; // Use 'import' for axios
-import cors from "cors"; // Use 'import' for cors
-import multer from "multer"; // Import multer for file uploads
-import { config } from "dotenv"; // Use 'import' for dotenv
-import app from "./app.js"; // Your custom app module
+import express from "express"; 
+import axios from "axios"; 
+import cors from "cors"; 
+import multer from "multer"; 
+import { config } from "dotenv"; 
+import app from "./app.js"; 
 import Experience from "./models/ExperienceSchema.js";
-import User from "./models/userSchema.js"
-
+import User from "./models/userSchema.js";
 import router from "./router/userRouter.js";
-import passport from "passport";
+import passport from "passport"; 
 import session from "express-session";
-import "./config/passport.js";
+import passportConfig from "./passport.js";
 import OpenAI from "openai/index.mjs";
-import Resume from "./models/resumeModel.js";
+import jwt from "jsonwebtoken"
+
 config();
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
 // Multer configuration
 const storage = multer.memoryStorage();
-
-
-const upload = multer({ storage }); // Create an upload instance
+const upload = multer({ storage });
 
 // Middleware setup
-app.use(cors()); // Allow all origins
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Allow your frontend URL
+    credentials: true, // Allow cookies to be sent
+  })
+);
+
 app.use(express.json());
 
-app.use(session({
-  secret: "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", // Change this to a secure secret key
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false } // Set secure: true in production
-}));
+// Session configuration
+app.use(
+  session({
+    secret: process.env.JWT_SECRET, 
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: false, // Set to true if using HTTPS
+      sameSite: "Lax", // For cross-site cookie handling
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
+    },
+  })
+);
+
+// Initialize passport
+passportConfig();
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(
-//     cors({
-//       origin: "http://localhost:5174", // Allow requests from your frontend origin
-//       methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
-//       credentials: true, // Allow cookies or authentication headers
-//     })
-//   );
 
 // LeetCode problems API endpoint
 app.get("/api/problems", async (req, res) => {
@@ -57,7 +66,6 @@ app.get("/api/problems", async (req, res) => {
       url: `https://leetcode.com/problems/${problem.stat.question__title_slug}/`,
       paid_only: problem.paid_only,
     }));
-    //hello everyone
     res.status(200).json(problems);
   } catch (error) {
     console.error(error);
@@ -65,57 +73,94 @@ app.get("/api/problems", async (req, res) => {
   }
 });
 
-
-
+// Experience Management Endpoints
 app.post('/user/experiences', async (req, res) => {
   try {
-      const newExperience = new Experience(req.body);
-      await newExperience.save();
-      res.status(201).json(newExperience);
+    const newExperience = new Experience(req.body);
+    await newExperience.save();
+    res.status(201).json(newExperience);
   } catch (err) {
-      res.status(400).json({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
 app.get('/user/experiences', async (req, res) => {
   try {
-      const experiences = await Experience.find();
-      res.json(experiences);
+    const experiences = await Experience.find();
+    res.json(experiences);
   } catch (err) {
-      res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 
 app.delete('/user/experiences/:id', async (req, res) => {
   try {
-      const experience = await Experience.findByIdAndDelete(req.params.id);
-      if (!experience) {
-          return res.status(404).json({ message: 'Experience not found' });
-      }
-      res.json({ message: 'Experience deleted successfully' });
+    const experience = await Experience.findByIdAndDelete(req.params.id);
+    if (!experience) {
+      return res.status(404).json({ message: 'Experience not found' });
+    }
+    res.json({ message: 'Experience deleted successfully' });
   } catch (error) {
-      res.status(500).json({ message: 'Error deleting experience' });
+    res.status(500).json({ message: 'Error deleting experience' });
   }
 });
 
-app.get("/auth/google", 
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
+// Google OAuth Routes
+app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
-// Google Auth Callback
-app.get("/auth/google/callback", 
-  passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }), 
+
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }),
   (req, res) => {
-    res.redirect("http://localhost:5173/arena"); // Redirect after successful login
+    if (!req.user) {
+      return res.status(401).send("Authentication failed");
+    }
+
+    // Sign the JWT with user ID
+    const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+
+    // Set JWT as a cookie
+    res.cookie("token", token, {
+      httpOnly: true, // More secure
+      secure: false, // Change to `true` in production (HTTPS)
+      sameSite: "Lax",
+      domain : "localhost",
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
+    res.cookie("isLoggedIn", true, {
+      httpOnly: false,  // so frontend JS can access it
+      secure: false,
+      sameSite: "Lax",
+      domain: "localhost",
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+    
+    res.redirect("http://localhost:5173/arena");
+    
+    // Set isLoggedIn as a cookie (not httpOnly so frontend can access it
+
+   // res.redirect("http://localhost:5173/arena?isLoggedIn=true");
   }
 );
+
+
 
 // Logout Route
 app.get("/logout", (req, res) => {
   req.logout((err) => {
-    if (err) return res.send("Logout failed");
-    res.redirect("http://localhost:5173/");
+    if (err) {
+      console.error("Error during logout:", err);
+      return res.status(500).send("Logout failed");
+    }
+    req.session.destroy(() => {
+      res.clearCookie("token");
+      res.redirect("http://localhost:5173/");
+    });
   });
 });
 
-
+export default app;

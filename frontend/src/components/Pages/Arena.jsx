@@ -32,13 +32,19 @@ const Arena = () => {
     },
   ];
 
-  const handleLogout = () => {
-    // Clear any session data or authentication state if needed
-    document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+ const handleLogout = () => {
+  // Expire token and isLoggedIn cookies by setting past expiry
+  document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  document.cookie = "isLoggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-    localStorage.removeItem("authToken");
-    navigate("/");
-  };
+  // Clear from localStorage (if also saved there)
+  localStorage.removeItem("token");
+  localStorage.removeItem("isLoggedIn");
+
+  // Navigate to home or login
+  navigate("/");
+};
+
 
   return (
     <div className="arena-container">

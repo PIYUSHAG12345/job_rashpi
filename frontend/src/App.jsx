@@ -16,17 +16,22 @@ import CompaniesPage from "./components/Pages/CompaniesPage.jsx";
 import Register from "./components/Auth/Signup.jsx";
 import Experience from "./components/Pages/Experience.jsx";
 import { useEffect } from "react";
+import SetLoginFromURL from "../Setgooglelogin.jsx";
 const App = () => {
-  useEffect(() => {
-    // Get JWT token from URL after Google Auth redirect
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
+  // useEffect(() => {
+  //   const params = new URLSearchParams(window.location.search);
+  //   console.log("URL Params:", params.toString()); // Debugging
 
-    if (token) {
-      localStorage.setItem("token", token);
-      window.location.href = "/arena";
-    }
-  }, []);
+  //   if (params.get("isLoggedIn") === "true") {
+  //     console.log("Setting isLoggedIn to localStorage"); // Debugging
+  //     localStorage.setItem("isLoggedIn", "true");
+
+  //     // ✅ Remove `isLoggedIn` from URL after storing it
+  //     window.history.replaceState({}, document.title, window.location.pathname);
+  //   }
+  // }, []);
+  <SetLoginFromURL />
+
   return (
       <Router>
         <Routes>

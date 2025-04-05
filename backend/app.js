@@ -4,9 +4,10 @@ import  {dbConnection} from "./database/dbConnection.js";
 import { config } from "dotenv";
 import userRouter from "./router/userRouter.js";
 import cookieParser from "cookie-parser";
+import punycode from "punycode"
 const app = express();
 // Load environment variables
-config({ path: "./config/config.env" });
+config({ path: "./config/.env" });
 
 // Database connection
 dbConnection();
@@ -26,6 +27,13 @@ app.use(
 );
 
 // Routes
+app.get("/auth/status", (req, res) => {
+  res.json({ isLoggedIn: true },
+    token,
+  );
+});
+
+
 app.use("/user", userRouter);
 // Start the server
 // app.use('/api/companies', Company);

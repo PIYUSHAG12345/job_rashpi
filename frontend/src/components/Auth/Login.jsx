@@ -33,9 +33,19 @@ const Login = () => {
   };
 
   // Google Login Redirect Function
-  const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:4000/auth/google";
-  };
+ // Google Login Redirect Function
+ const handleGoogleLogin = () => {
+  try {
+    // Redirect user to backend Google OAuth endpoint
+    window.location.href = "http://localhost:4000/auth/google/";
+  } catch (err) {
+    console.error("Error during Google login:", err);
+  }
+};
+
+// Function to check for login after redirectio
+
+
 
   return (
     <div className="login-container">
