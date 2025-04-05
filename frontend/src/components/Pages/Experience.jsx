@@ -13,7 +13,7 @@ const Experience = () => {
 
     // Fetch experiences from the backend
     useEffect(() => {
-        axios.get('http://localhost:4000/user/experiences')
+        axios.get('https://job-rashpi-2-frontend.onrender.com/user/experiences')
             .then(response => {
                 setExperiences(response.data);
                 setFilteredExperiences(response.data);
@@ -26,7 +26,7 @@ const Experience = () => {
         e.preventDefault();
         const newExperience = { name, company, title, experience };
         try {
-            const response = await axios.post('http://localhost:4000/user/experiences', newExperience);
+            const response = await axios.post('https://job-rashpi-2-frontend.onrender.com/user/experiences', newExperience);
             const updatedExperiences = [...experiences, response.data];
             setExperiences(updatedExperiences);
             setFilteredExperiences(updatedExperiences);
@@ -42,7 +42,7 @@ const Experience = () => {
     // Handle delete experience
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:4000/user/experiences/${id}`);
+            await axios.delete(`https://job-rashpi-2-frontend.onrender.com/user/experiences/${id}`);
             const updatedExperiences = experiences.filter(exp => exp._id !== id);
             setExperiences(updatedExperiences);
             setFilteredExperiences(updatedExperiences);
