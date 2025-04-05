@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
       //   window.history.replaceState({}, document.title, window.location.pathname);
       // }
 
-      const res = await axios.get("http://localhost:4000/user/get", {
+      const res = await axios.get("https://job-rashpi-2-frontend.onrender.com/user/get", {
         withCredentials: true, // Ensures cookies are sent
       });
 
