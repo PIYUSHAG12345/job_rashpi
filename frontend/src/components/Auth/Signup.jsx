@@ -50,7 +50,7 @@ const Register = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:4000/auth/google"; // Backend se redirect hoga
+    window.location.href = "https://job-rashpi-2-frontend.onrender.com/auth/google"; // Backend se redirect hoga
   };
 
   return (
