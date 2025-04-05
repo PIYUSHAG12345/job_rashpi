@@ -111,7 +111,7 @@ app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "em
 
 app.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }),
+  passport.authenticate("google", { failureRedirect: "https://job-rashpi-2-frontend.onrender.com/login" }),
   (req, res) => {
     if (!req.user) {
       return res.status(401).send("Authentication failed");
@@ -134,12 +134,12 @@ app.get(
       httpOnly: false,  // so frontend JS can access it
       secure: false,
       sameSite: "Lax",
-      domain: "localhost",
+      domain: "https://job-rashpi-2-frontend.onrender.com",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
     
-    res.redirect("http://localhost:5173/arena");
+    res.redirect("https://job-rashpi-2-frontend.onrender.com/arena");
     
     // Set isLoggedIn as a cookie (not httpOnly so frontend can access it
 
