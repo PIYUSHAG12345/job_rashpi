@@ -23,7 +23,7 @@ const upload = multer({ storage });
 // Middleware setup
 app.use(
   cors({
-    origin: "https://job-rashpi-2-frontend.onrender.com", // Allow your frontend URL
+    origin: "http://localhost:5173", // Allow your frontend URL
     credentials: true, // Allow cookies to be sent
   })
 );
@@ -111,7 +111,7 @@ app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "em
 
 app.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "https://job-rashpi-2-frontend.onrender.com/login" }),
+  passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }),
   (req, res) => {
     if (!req.user) {
       return res.status(401).send("Authentication failed");
@@ -122,24 +122,24 @@ app.get(
 
     // Set JWT as a cookie
     res.cookie("token", token, {
-      httpOnly: true, // More secure
-      secure: true, // Change to `true` in production (HTTPS)
-      sameSite: "None",
-      domain : "https://job-rashpi-2-frontend.onrender.com",
+      httpOnly: false, // More secure
+      secure: false, // Change to `true` in production (HTTPS)
+      sameSite: "lax",
+      domain : "localhost",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
     res.cookie("isLoggedIn", true, {
-      httpOnly: true,  // so frontend JS can access it
-      secure: true,
-      sameSite: "None",
-      domain: "https://job-rashpi-2-frontend.onrender.com",
+      httpOnly: false,  // so frontend JS can access it
+      secure: false,
+      sameSite: "lax",
+      domain: "localhost",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
     
-    res.redirect("https://job-rashpi-2-frontend.onrender.com/arena");
+    res.redirect("http://localhost:5173/arena");
     
     // Set isLoggedIn as a cookie (not httpOnly so frontend can access it
 
@@ -158,7 +158,7 @@ app.get("/logout", (req, res) => {
     }
     req.session.destroy(() => {
       res.clearCookie("token");
-      res.redirect("https://job-rashpi-2-frontend.onrender.com/");
+      res.redirect("http://localhost:5173/");
     });
   });
 });

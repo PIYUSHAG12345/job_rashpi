@@ -16,7 +16,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://job-rashpi-2-frontend.onrender.com/user/login",
+        "http://localhost:4000/user/login",
         { email, password },
         {
           withCredentials: true,
@@ -37,7 +37,7 @@ const Login = () => {
  const handleGoogleLogin = () => {
   try {
     // Redirect user to backend Google OAuth endpoint
-    window.location.href = "https://job-rashpi-2-frontend.onrender.com/auth/google/";
+    window.location.href = "http://localhost:4000/auth/google/";
   } catch (err) {
     console.error("Error during Google login:", err);
   }
