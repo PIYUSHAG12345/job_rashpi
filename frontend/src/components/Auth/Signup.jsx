@@ -19,7 +19,7 @@ const Register = () => {
       // API call to register user
        // Redirect to Login after delay
       const response = await axios.post(
-        "http://localhost:4000/user/register",
+        "https://job-rashpi-4.onrender.com/user/register",
         {
           name,
           email,
@@ -50,7 +50,7 @@ const Register = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:4000/auth/google"; // Backend se redirect hoga
+    window.location.href = "https://job-rashpi-4.onrender.com/auth/google"; // Backend se redirect hoga
   };
 
   return (
