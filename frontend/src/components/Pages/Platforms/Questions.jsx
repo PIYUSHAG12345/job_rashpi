@@ -10,7 +10,7 @@ const QuestionsPage = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/problems");
+        const response = await axios.get("https://job-rashpi-4.onrender.com/api/problems");
         setQuestions(response.data.reverse());
         setLoading(false);
       } catch (error) {
