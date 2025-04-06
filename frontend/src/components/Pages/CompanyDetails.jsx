@@ -8,7 +8,7 @@ const CompanyDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/companies/${id}`)
+      .get(`http://localhost:4000/api/companies/${id}`)
       .then((response) => setCompany(response.data))
       .catch((error) => console.error("Error fetching company details:", error));
   }, [id]);

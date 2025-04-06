@@ -122,9 +122,9 @@ app.get(
 
     // Set JWT as a cookie
     res.cookie("token", token, {
-      httpOnly: true, // More secure
+      httpOnly: false, // More secure
       secure: false, // Change to `true` in production (HTTPS)
-      sameSite: "Lax",
+      sameSite: "lax",
       domain : "localhost",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
@@ -133,7 +133,7 @@ app.get(
     res.cookie("isLoggedIn", true, {
       httpOnly: false,  // so frontend JS can access it
       secure: false,
-      sameSite: "Lax",
+      sameSite: "lax",
       domain: "localhost",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
