@@ -11,7 +11,7 @@ const UploadResume = () => {
         const formData = new FormData();
         formData.append("resume", file);
 
-        const response = await axios.post("http://localhost:4000/upload", formData);
+        const response = await axios.post("https://job-rashpi-4.onrender.com/upload", formData);
         setScore(response.data.score);
     };
 
