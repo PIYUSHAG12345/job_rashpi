@@ -23,7 +23,7 @@ const upload = multer({ storage });
 // Middleware setup
 app.use(
   cors({
-    origin: "http://localhost:5173", // Allow your frontend URL
+    origin: "http://localhost:5173","https://job-rashpi-5.onrender.com", // Allow your frontend URL
     credentials: true, // Allow cookies to be sent
   })
 );
@@ -111,7 +111,7 @@ app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "em
 
 app.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }),
+  passport.authenticate("google", { failureRedirect: "https://job-rashpi-5.onrender.com/login" }),
   (req, res) => {
     if (!req.user) {
       return res.status(401).send("Authentication failed");
@@ -139,7 +139,7 @@ app.get(
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
     
-    res.redirect("http://localhost:5173/arena");
+    res.redirect("https://job-rashpi-5.onrender.com/arena");
     
     // Set isLoggedIn as a cookie (not httpOnly so frontend can access it
 
@@ -158,7 +158,7 @@ app.get("/logout", (req, res) => {
     }
     req.session.destroy(() => {
       res.clearCookie("token");
-      res.redirect("http://localhost:5173/");
+      res.redirect("https://job-rashpi-5.onrender.com/");
     });
   });
 });
