@@ -23,7 +23,7 @@ const upload = multer({ storage });
 // Middleware setup
 app.use(
   cors({
-    origin: "http://localhost:5173","https://job-rashpi-5.onrender.com", // Allow your frontend URL
+    origin:"https://job-rashpi-5.onrender.com", // Allow your frontend URL
     credentials: true, // Allow cookies to be sent
   })
 );
@@ -37,9 +37,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      httpOnly: true,
-      secure: false, // Set to true if using HTTPS
-      sameSite: "Lax", // For cross-site cookie handling
+      httpOnly: false,
+      secure: true, // Set to true if using HTTPS
+      sameSite: "None", // For cross-site cookie handling
       maxAge: 7 * 24 * 60 * 60 * 1000, 
     },
   })
@@ -123,18 +123,18 @@ app.get(
     // Set JWT as a cookie
     res.cookie("token", token, {
       httpOnly: false, // More secure
-      secure: false, // Change to `true` in production (HTTPS)
-      sameSite: "lax",
-      domain : "localhost",
+      secure: true, // Change to `true` in production (HTTPS)
+      sameSite: "None",
+      // domain : "https://job-rashpi-5.onrender.com",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
     res.cookie("isLoggedIn", true, {
       httpOnly: false,  // so frontend JS can access it
-      secure: false,
-      sameSite: "lax",
-      domain: "localhost",
+      secure: true,
+      sameSite: "None",
+      // domain: "https://job-rashpi-5.onrender.com",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
