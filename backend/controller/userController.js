@@ -64,7 +64,7 @@ export const login = async (req, res, next) => {
     if (!user) {
       return res.status(400).json({
         success: false,
-        message: "Invalid email or password.",
+        message: "Invalid email ",
       });
     }
 
@@ -73,7 +73,7 @@ export const login = async (req, res, next) => {
     if (!isPasswordMatched) {
       return res.status(400).json({
         success: false,
-        message: "Invalid email or password.",
+        message: "Invalid password.",
       });
     }
 
