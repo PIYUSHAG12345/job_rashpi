@@ -153,7 +153,7 @@ app.get(
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.redirect("https://job-rashpi-5.onrender.com/arena");
+    res.redirect("https://job-rashpi-4.onrender.com/arena");
   }
 );
 
