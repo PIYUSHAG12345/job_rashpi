@@ -37,7 +37,7 @@ const App = () => {
         <Routes>
         {/* Protected Arena Route */}
         
-        <Route path="/arena" element={<ProtectedRoute element={<Arena />} />} />
+        <Route path="/arena" element={<Arena />}  />
         <Route path="/questions" element={<ProtectedRoute element={<QuestionsPage/>}/>}/>
     <Route path="/resumebuilder" element={<ProtectedRoute element={<ResumeBuilder/>}/>}/>
     <Route path="/platformlist" element={<ProtectedRoute element={<PlatformList/>}/>}/>
