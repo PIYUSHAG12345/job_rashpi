@@ -171,6 +171,11 @@ app.get("/logout", (req, res) => {
   });
 });
 
+
+app.get('/arena', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'arena.html'));
+});
+
 // User routes
 app.use("/user", userRouter);
 
