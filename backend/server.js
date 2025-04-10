@@ -138,7 +138,7 @@ app.get(
     const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
     res.cookie("token", token, {
-      httpOnly: false,
+      httpOnly: true,
       secure: true,
       sameSite: "None",
       path: "/",
@@ -146,7 +146,7 @@ app.get(
     });
 
     res.cookie("isLoggedIn", true, {
-      httpOnly: false,
+      httpOnly: true,
       secure: true,
       sameSite: "None",
       path: "/",
