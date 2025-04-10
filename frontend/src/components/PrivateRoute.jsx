@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 
 const ProtectedRoute = ({ element }) => {
+  console.log("sahi ja raha hai");
   const { user } = useContext(AuthContext);
 
     const storedLogin = window.localStorage.getItem('isLoggedIn');
