@@ -152,7 +152,7 @@ app.get(
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-   res.redirect("https://job-rashpi-5.onrender.com/arena?isLoggedIn=true");
+   res.redirect("https://job-rashpi-5.onrender.com/questions");
 
     // res.redirect("https://job-rashpi-5.onrender.com/arena");
   }
