@@ -1,50 +1,27 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import axios from "axios";
 
-const ResumeBuilder = () => {
-  const [uploadedFile, setUploadedFile] = useState(null);
+const UploadResume = () => {
+    const [file, setFile] = useState(null);
+    const [score, setScore] = useState(null);
 
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    setUploadedFile(file);
-    alert("Resume uploaded successfully!");
-  };
+    const handleUpload = async () => {
+        if (!file) return alert("Please select a resume!");
 
-  const handleOverleafRedirect = () => {
-    window.open("https://www.overleaf.com", "_blank"); // Opens Overleaf in a new tab
-  };
+        const formData = new FormData();
+        formData.append("resume", file);
 
-  return (
-    <div className="resume-builder">
-      <h1>Resume Builder</h1>
-      <p>Upload your resume or use Overleaf to create a new one.</p>
+        const response = await axios.post("https://job-rashpi-4.onrender.com/upload", formData);
+        setScore(response.data.score);
+    };
 
-      {/* Resume Upload Section */}
-      <div className="upload-section">
-        <input
-          type="file"
-          accept=".pdf,.doc,.docx"
-          onChange={handleFileUpload}
-          id="resume-upload"
-          style={{ display: "none" }}
-        />
-        <label htmlFor="resume-upload" className="upload-button">
-          {uploadedFile ? "Change File" : "Upload Resume"}
-        </label>
-        {uploadedFile && (
-          <p className="file-info">
-            Uploaded File: <strong>{uploadedFile.name}</strong>
-          </p>
-        )}
-      </div>
-
-      {/* Overleaf Redirect Section */}
-      <div className="overleaf-section">
-        <button onClick={handleOverleafRedirect} className="overleaf-button">
-          Go to Overleaf
-        </button>
-      </div>
-    </div>
-  );
+    return (
+        <div className="upload-container">
+            <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+            <button onClick={handleUpload}>Upload & Get AI Score</button>
+            {score !== null && <p>Resume Score: {score}/100</p>}
+        </div>
+    );
 };
 
-export default ResumeBuilder;
+export default UploadResume;

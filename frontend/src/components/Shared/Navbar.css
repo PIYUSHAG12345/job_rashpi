@@ -1,11 +1,12 @@
 /* Main Navbar Styling */
 .navbar {
-    background-color: #4a4e69; /* Dark shade */
-    padding: 15px 20px;
+  background: linear-gradient(to right, #764ba2, #143cef);
+  padding: 15px 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     position: sticky;
     top: 0;
     z-index: 1000;
+    width: 100vw;
   }
   
   /* Container for navigation links */
@@ -13,7 +14,7 @@
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
   }
   
